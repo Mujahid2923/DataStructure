@@ -1,3 +1,40 @@
+void init( int node, int b, int e )
+{
+    if( b == e )
+    {
+        Tree[ node ] = arr[ b ] ;
+        return ;
+    }
+    segment_tree ;
+    init( Lnode, b, mid ) ;
+    init( Rnode, mid + 1, e ) ;
+    Tree[ node ] = Tree[ Lnode ] + Tree[ Rnode ] ;
+}
+
+void update( int node, int b, int e, int i, int newvalue )
+{
+    if( i > e || i < b ) return ;
+    if( b >= i && e <= i )
+    {
+        Tree[ node ] = newvalue ;
+        return ;
+    }
+
+    segment_tree ;
+    update( Lnode, b, mid, i, newvalue ) ;
+    update( Rnode, mid + 1, e, i, newvalue ) ;
+    Tree[ node ] = Tree[ Lnode ] + Tree[ Rnode ] ;
+}
+
+int query( int node, int b, int e, int i, int j )
+{
+    if( b > j || e < i ) return 0 ;
+    if( b >= i && e <= j ) return Tree[ node ] ;
+    segment_tree ;
+    return query( Lnode, b, mid, i, j ) + query( Rnode, mid + 1, e, i, j ) ;
+}
+
+
 ///...................................*****.................................................///
 ///                  Mujahidul Islam ( mujahidulislam2923@gmail.com )                       ///
 ///                  Department of Ict                                                      ///

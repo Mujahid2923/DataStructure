@@ -59,6 +59,16 @@ int Height( node * root )
     return 1 + max( Height( root -> left ), Height( root -> right ) ) ;
 }
 
+
+int Diameter( node* root )
+{
+    if( root == nullptr ) return 0 ;
+    int Lheight = Height( root -> left ) ;
+    int Rheight = Height( root -> right ) ;
+    return max( Lheight + Rheight + 2, max( Diameter( root -> left ), Diameter( root -> right ) ) ) ;
+}
+
+
 void bfs( node* root )
 {
     if( root == nullptr ) return ;
@@ -83,8 +93,9 @@ int main()
     root = Insert( root, 20 ) ;
 
     bfs( root ) ;
-    cout << FindMin( root ) << endl ;
-    cout << Height( root ) << endl ;
+    cout << "Min : " << FindMin( root ) << endl ;
+    cout << "Height : " << Height( root ) << endl ;
+    cout <<"Diameter : " << Diameter( root ) << endl ;
 
     int n ;
     cin >> n ;

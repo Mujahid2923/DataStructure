@@ -59,6 +59,22 @@ int Height( node * root )
     return 1 + max( Height( root -> left ), Height( root -> right ) ) ;
 }
 
+void bfs( node* root )
+{
+    if( root == nullptr ) return ;
+    queue < node* > Q ;
+    Q.push( root ) ;
+    while( !Q.empty() )
+    {
+        node* curr = Q.front() ;
+        cout << curr -> data << " " ;
+        Q.pop() ;
+        if( curr -> left != nullptr ) Q.push( curr -> left ) ;
+        if( curr -> right != nullptr ) Q.push( curr -> right ) ;
+    }
+    cout << endl ;
+}
+
 int main()
 {
     node* root = nullptr ;
@@ -66,6 +82,7 @@ int main()
     root = Insert( root, 10 ) ;
     root = Insert( root, 20 ) ;
 
+    bfs( root ) ;
     cout << FindMin( root ) << endl ;
     cout << Height( root ) << endl ;
 
@@ -76,8 +93,10 @@ int main()
     return 0 ;
 }
 
----------------Merge two binary tree and get therir sum--------------------------
-    class Solution {
+
+**********************---------------Merge two binary tree and get therir sum----------------------*****************
+    
+class Solution {
 public:
     TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) 
     {
@@ -89,8 +108,10 @@ public:
         return t1 ;
     }
 };
+
 //https://leetcode.com/problems/merge-two-binary-trees/
-------------------Invert the binary tree--------------------------------------
+
+********************************------------------Invert the binary tree----------------------******************************
     
 class Solution {
 public:

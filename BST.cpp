@@ -75,3 +75,35 @@ int main()
     else cout << "Not Found" << endl ;
     return 0 ;
 }
+
+---------------Merge two binary tree and get therir sum--------------------------
+    class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) 
+    {
+        if( t1 == nullptr ) return t2 ;
+        if( t2 == nullptr ) return t1 ;
+        t1 -> val += t2 -> val ;
+        t1 -> left = mergeTrees( t1 -> left, t2 -> left ) ;
+        t1 -> right = mergeTrees( t1 -> right, t2 -> right ) ;
+        return t1 ;
+    }
+};
+//https://leetcode.com/problems/merge-two-binary-trees/
+------------------Invert the binary tree--------------------------------------
+    
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) 
+    {
+        if( root == nullptr ) return nullptr ;
+        TreeNode *Left, *Right ;
+        Left = invertTree( root -> right ) ;
+        Right = invertTree( root -> left ) ;
+        root -> left = Left ;
+        root -> right = Right ;
+        //if( Left && Right )cout << Left -> val << " " << Right -> val << endl ;
+        return root ;
+    } 
+};
+//https://leetcode.com/problems/invert-binary-tree/

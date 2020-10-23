@@ -308,3 +308,25 @@ public:
     } 
 };
 //https://leetcode.com/problems/invert-binary-tree/
+
+
+-------------------------------*********** height balanced BST ************----------------------------------------------------
+Given an array where elements are sorted in ascending order, convert it to a height balanced BST.  
+class Solution
+{
+    TreeNode* Fun( vector<int> &v, int low , int high )
+    {
+        if( low > high ) return nullptr ;
+        int mid = ( low + high ) >> 1 ;
+        TreeNode* root = new TreeNode( v[ mid ] ) ;
+        root -> left = Fun( v, low , mid - 1 ) ;
+        root -> right = Fun( v, mid + 1 , high ) ;
+        return root ;
+    }
+
+public:
+    TreeNode* sortedArrayToBST( vector<int> &nums )
+    {
+        return Fun( nums, 0 , nums.size() - 1 ) ;
+    }
+};

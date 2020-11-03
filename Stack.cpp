@@ -1,42 +1,49 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-#define          Looser                 ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
-#define          ll                     long long int
-#define          ld                     long double
-#define          pii                    pair < int, int>
-#define          pll                    pair < ll, ll>
-#define          MOD                    1000000007
-#define          ff                     first
-#define          ss                     second
-#define          pb                     push_back
-#define          pf                     printf
-#define          mp                     make_pair
-#define          gcd(a, b)          	__gcd(a,b)
-#define          lcm(a, b)              ((a)*(b)/gcd(a,b))
-#define          PI                     acos(-1.0)
-#define          zero(a)                memset(a,0,sizeof a)
-#define          all(v)                 v.begin(),v.end()
-#define          Max(v)                 *max_element(all(v))
-#define          Min(v)                 *min_element(all(v))
-#define          Upper(c,x)             (upper_bound(c.begin(),c.end(),x)-c.begin())
-#define          Lower(c,x)             (lower_bound(c.begin(),c.end(),x)-c.begin())
-#define          Unique(X)              (X).erase(unique(all(X)),(X).end())
-#define          no                     cout << "NO" << endl ;
-#define          yes                    cout << "YES" << endl ;
-#define          segment_tree           int Lnode = node << 1 , Rnode = Lnode + 1 , mid = ( b + e ) >> 1 ;
-
-///--------------------**********----------------------------------
-
-vector < ll > v, v1, v2, v3, v4 ;
-vector < pair< ll, ll > > vec ;
-vector < ll > adj[ 505 ], adj2[ 505 ] ;
-map < ll, ll > Mp, Mp2 ;
-set < ll > st, st1, st2 ;
-stack < ll > Stk ;
-
-///---------------------**********--------------------------------
-
+(1) find the previous less element of each element in a vector with O(n) time:
+What is the previous less element of an element?
+For example:
+[3, 7, 8, 4]
+The previous less element of 7 is 3.
+The previous less element of 8 is 7.
+The previous less element of 4 is 3.
+There is no previous less element for 3.
+For simplicity of notation, we use abbreviation PLE to denote Previous Less Element.
+---------------------------------------------------
+C++ code (by slitghly modifying the paradigm):
+Instead of directly pushing the element itself, here for simplicity, we push the index.
+We do some record when the index is pushed into the stack.
+// previous_less[i] = j means A[j] is the previous less element of A[i].
+// previous_less[i] = -1 means there is no previous less element of A[i].
+vector<int> previous_less(A.size(), -1);
+for(int i = 0; i < A.size(); i++){
+  while(!in_stk.empty() && A[in_stk.top()] > A[i]){
+    in_stk.pop();
+  }
+  previous_less[i] = in_stk.empty()? -1: in_stk.top();
+  in_stk.push(i);
+}
+---------------------------------------------------------
+(2) find the next less element of each element in a vector with O(n) time:
+What is the next less element of an element?
+For example:
+[3, 7, 8, 4]
+The next less element of 8 is 4.
+The next less element of 7 is 4.
+There is no next less element for 3 and 4.
+For simplicity of notation, we use abbreviation NLE to denote Next Less Element.
+------------------------------------------------------------
+C++ code (by slighly modifying the paradigm):
+We do some record when the index is poped out from the stack.
+// next_less[i] = j means A[j] is the next less element of A[i].
+// next_less[i] = -1 means there is no next less element of A[i].
+vector<int> previous_less(A.size(), -1);
+for(int i = 0; i < A.size(); i++){
+  while(!in_stk.empty() && A[in_stk.top()] > A[i]){
+    auto x = in_stk.top(); in_stk.pop();
+    next_less[x] = i;
+  }
+  in_stk.push(i);
+}
+------------------------------------------------------------
 ll n, x ;
 string s ;
 
@@ -85,7 +92,8 @@ void Calculation()
     int ans = 0 ;
     for( int i = 0 ; i < n ; i ++ )
     {
-        ans = ( ans + ( left[ i ] * right[ i ] * v[ i ] ) % MOD ) % MOD ;
+        ans = ( ans + ( left[ i ] * right[ i ] * v[ i ] ) % MOD ) % MOD ; // left[ i ] distance from the i element to left sammler element
+                                                                          // right[ i ] distance from the i element to right sammler element
     }
     cout << ans << endl ;
 }

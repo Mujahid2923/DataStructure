@@ -1,3 +1,4 @@
+#define          segment_tree           int Lnode = node << 1 , Rnode = Lnode + 1 , mid = ( b + e ) >> 1 ;
 void init( int node, int b, int e )
 {
     if( b == e )
